@@ -4,7 +4,7 @@
 #
 Name     : gnome-video-effects
 Version  : 0.4.3
-Release  : 1
+Release  : 2
 URL      : https://download.gnome.org/sources/gnome-video-effects/0.4/gnome-video-effects-0.4.3.tar.xz
 Source0  : https://download.gnome.org/sources/gnome-video-effects/0.4/gnome-video-effects-0.4.3.tar.xz
 Summary  : A collection of GStreamer effects to be used in different GNOME Modules
