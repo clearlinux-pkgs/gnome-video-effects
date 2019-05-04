@@ -4,13 +4,15 @@
 #
 Name     : gnome-video-effects
 Version  : 0.4.3
-Release  : 3
+Release  : 4
 URL      : https://download.gnome.org/sources/gnome-video-effects/0.4/gnome-video-effects-0.4.3.tar.xz
 Source0  : https://download.gnome.org/sources/gnome-video-effects/0.4/gnome-video-effects-0.4.3.tar.xz
-Summary  : A collection of GStreamer effects to be used in different GNOME Modules
+Summary  : Collection of GStreamer effects for GNOME
 Group    : Development/Tools
 License  : GPL-2.0
-Requires: gnome-video-effects-data
+Requires: gnome-video-effects-data = %{version}-%{release}
+Requires: gnome-video-effects-license = %{version}-%{release}
+BuildRequires : buildreq-gnome
 BuildRequires : gettext
 BuildRequires : intltool
 BuildRequires : perl(XML::Parser)
@@ -32,11 +34,20 @@ data components for the gnome-video-effects package.
 %package dev
 Summary: dev components for the gnome-video-effects package.
 Group: Development
-Requires: gnome-video-effects-data
-Provides: gnome-video-effects-devel
+Requires: gnome-video-effects-data = %{version}-%{release}
+Provides: gnome-video-effects-devel = %{version}-%{release}
+Requires: gnome-video-effects = %{version}-%{release}
 
 %description dev
 dev components for the gnome-video-effects package.
+
+
+%package license
+Summary: license components for the gnome-video-effects package.
+Group: Default
+
+%description license
+license components for the gnome-video-effects package.
 
 
 %prep
@@ -47,7 +58,14 @@ export http_proxy=http://127.0.0.1:9/
 export https_proxy=http://127.0.0.1:9/
 export no_proxy=localhost,127.0.0.1,0.0.0.0
 export LANG=C
-export SOURCE_DATE_EPOCH=1517949222
+export SOURCE_DATE_EPOCH=1557007813
+export AR=gcc-ar
+export RANLIB=gcc-ranlib
+export NM=gcc-nm
+export CFLAGS="$CFLAGS -O3 -ffat-lto-objects -flto=4 "
+export FCFLAGS="$CFLAGS -O3 -ffat-lto-objects -flto=4 "
+export FFLAGS="$CFLAGS -O3 -ffat-lto-objects -flto=4 "
+export CXXFLAGS="$CXXFLAGS -O3 -ffat-lto-objects -flto=4 "
 %configure --disable-static
 make  %{?_smp_mflags}
 
@@ -59,8 +77,10 @@ export no_proxy=localhost,127.0.0.1,0.0.0.0
 make VERBOSE=1 V=1 %{?_smp_mflags} check
 
 %install
-export SOURCE_DATE_EPOCH=1517949222
+export SOURCE_DATE_EPOCH=1557007813
 rm -rf %{buildroot}
+mkdir -p %{buildroot}/usr/share/package-licenses/gnome-video-effects
+cp COPYING %{buildroot}/usr/share/package-licenses/gnome-video-effects/COPYING
 %make_install
 
 %files
@@ -106,3 +126,7 @@ rm -rf %{buildroot}
 %files dev
 %defattr(-,root,root,-)
 /usr/lib64/pkgconfig/gnome-video-effects.pc
+
+%files license
+%defattr(0644,root,root,0755)
+/usr/share/package-licenses/gnome-video-effects/COPYING
