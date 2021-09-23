@@ -4,7 +4,7 @@
 #
 Name     : gnome-video-effects
 Version  : 0.5.0
-Release  : 7
+Release  : 8
 URL      : https://download.gnome.org/sources/gnome-video-effects/0.5/gnome-video-effects-0.5.0.tar.xz
 Source0  : https://download.gnome.org/sources/gnome-video-effects/0.5/gnome-video-effects-0.5.0.tar.xz
 Summary  : A collection of GStreamer effects to be used in different GNOME Modules
@@ -51,13 +51,16 @@ license components for the gnome-video-effects package.
 %prep
 %setup -q -n gnome-video-effects-0.5.0
 cd %{_builddir}/gnome-video-effects-0.5.0
+pushd ..
+cp -a gnome-video-effects-0.5.0 buildavx2
+popd
 
 %build
 export http_proxy=http://127.0.0.1:9/
 export https_proxy=http://127.0.0.1:9/
 export no_proxy=localhost,127.0.0.1,0.0.0.0
 export LANG=C.UTF-8
-export SOURCE_DATE_EPOCH=1632163109
+export SOURCE_DATE_EPOCH=1632416625
 export GCC_IGNORE_WERROR=1
 export AR=gcc-ar
 export RANLIB=gcc-ranlib
@@ -68,10 +71,13 @@ export FFLAGS="$FFLAGS -O3 -ffat-lto-objects -flto=auto "
 export CXXFLAGS="$CXXFLAGS -O3 -ffat-lto-objects -flto=auto "
 CFLAGS="$CFLAGS" CXXFLAGS="$CXXFLAGS" LDFLAGS="$LDFLAGS" meson --libdir=lib64 --prefix=/usr --buildtype=plain   builddir
 ninja -v -C builddir
+CFLAGS="$CFLAGS -m64 -march=haswell" CXXFLAGS="$CXXFLAGS -m64 -march=haswell " LDFLAGS="$LDFLAGS -m64 -march=haswell" meson --libdir=lib64/haswell --prefix=/usr --buildtype=plain   builddiravx2
+ninja -v -C builddiravx2
 
 %install
 mkdir -p %{buildroot}/usr/share/package-licenses/gnome-video-effects
 cp %{_builddir}/gnome-video-effects-0.5.0/COPYING %{buildroot}/usr/share/package-licenses/gnome-video-effects/1f199f2dcc0341653fc919334d9c26d0d2098f93
+DESTDIR=%{buildroot} ninja -C builddiravx2 install
 DESTDIR=%{buildroot} ninja -C builddir install
 
 %files
