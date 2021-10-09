@@ -4,13 +4,14 @@
 #
 Name     : gnome-video-effects
 Version  : 0.5.0
-Release  : 8
+Release  : 9
 URL      : https://download.gnome.org/sources/gnome-video-effects/0.5/gnome-video-effects-0.5.0.tar.xz
 Source0  : https://download.gnome.org/sources/gnome-video-effects/0.5/gnome-video-effects-0.5.0.tar.xz
 Summary  : A collection of GStreamer effects to be used in different GNOME Modules
 Group    : Development/Tools
 License  : GPL-2.0
 Requires: gnome-video-effects-data = %{version}-%{release}
+Requires: gnome-video-effects-filemap = %{version}-%{release}
 Requires: gnome-video-effects-license = %{version}-%{release}
 BuildRequires : buildreq-gnome
 BuildRequires : buildreq-meson
@@ -40,6 +41,14 @@ Requires: gnome-video-effects = %{version}-%{release}
 dev components for the gnome-video-effects package.
 
 
+%package filemap
+Summary: filemap components for the gnome-video-effects package.
+Group: Default
+
+%description filemap
+filemap components for the gnome-video-effects package.
+
+
 %package license
 Summary: license components for the gnome-video-effects package.
 Group: Default
@@ -60,7 +69,7 @@ export http_proxy=http://127.0.0.1:9/
 export https_proxy=http://127.0.0.1:9/
 export no_proxy=localhost,127.0.0.1,0.0.0.0
 export LANG=C.UTF-8
-export SOURCE_DATE_EPOCH=1632416625
+export SOURCE_DATE_EPOCH=1633752383
 export GCC_IGNORE_WERROR=1
 export AR=gcc-ar
 export RANLIB=gcc-ranlib
@@ -71,13 +80,14 @@ export FFLAGS="$FFLAGS -O3 -ffat-lto-objects -flto=auto "
 export CXXFLAGS="$CXXFLAGS -O3 -ffat-lto-objects -flto=auto "
 CFLAGS="$CFLAGS" CXXFLAGS="$CXXFLAGS" LDFLAGS="$LDFLAGS" meson --libdir=lib64 --prefix=/usr --buildtype=plain   builddir
 ninja -v -C builddir
-CFLAGS="$CFLAGS -m64 -march=haswell" CXXFLAGS="$CXXFLAGS -m64 -march=haswell " LDFLAGS="$LDFLAGS -m64 -march=haswell" meson --libdir=lib64/haswell --prefix=/usr --buildtype=plain   builddiravx2
+CFLAGS="$CFLAGS -m64 -march=x86-64-v3" CXXFLAGS="$CXXFLAGS -m64 -march=x86-64-v3 " LDFLAGS="$LDFLAGS -m64 -march=x86-64-v3" meson --libdir=lib64 --prefix=/usr --buildtype=plain   builddiravx2
 ninja -v -C builddiravx2
 
 %install
 mkdir -p %{buildroot}/usr/share/package-licenses/gnome-video-effects
 cp %{_builddir}/gnome-video-effects-0.5.0/COPYING %{buildroot}/usr/share/package-licenses/gnome-video-effects/1f199f2dcc0341653fc919334d9c26d0d2098f93
-DESTDIR=%{buildroot} ninja -C builddiravx2 install
+DESTDIR=%{buildroot}-v3 ninja -C builddiravx2 install
+/usr/bin/elf-move.py avx2 %{buildroot}-v3 %{buildroot}/usr/share/clear/optimized-elf/ %{buildroot}/usr/share/clear/filemap/filemap-%{name}
 DESTDIR=%{buildroot} ninja -C builddir install
 
 %files
@@ -123,6 +133,10 @@ DESTDIR=%{buildroot} ninja -C builddir install
 %files dev
 %defattr(-,root,root,-)
 /usr/share/pkgconfig/gnome-video-effects.pc
+
+%files filemap
+%defattr(-,root,root,-)
+/usr/share/clear/filemap/filemap-gnome-video-effects
 
 %files license
 %defattr(0644,root,root,0755)
