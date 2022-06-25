@@ -4,7 +4,7 @@
 #
 Name     : gnome-video-effects
 Version  : 0.5.0
-Release  : 13
+Release  : 14
 URL      : https://download.gnome.org/sources/gnome-video-effects/0.5/gnome-video-effects-0.5.0.tar.xz
 Source0  : https://download.gnome.org/sources/gnome-video-effects/0.5/gnome-video-effects-0.5.0.tar.xz
 Summary  : A collection of GStreamer effects to be used in different GNOME Modules
@@ -60,7 +60,7 @@ export http_proxy=http://127.0.0.1:9/
 export https_proxy=http://127.0.0.1:9/
 export no_proxy=localhost,127.0.0.1,0.0.0.0
 export LANG=C.UTF-8
-export SOURCE_DATE_EPOCH=1656035320
+export SOURCE_DATE_EPOCH=1656117287
 export GCC_IGNORE_WERROR=1
 export AR=gcc-ar
 export RANLIB=gcc-ranlib
