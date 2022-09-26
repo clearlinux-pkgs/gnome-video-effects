@@ -4,7 +4,7 @@
 #
 Name     : gnome-video-effects
 Version  : 0.5.0
-Release  : 19
+Release  : 20
 URL      : https://download.gnome.org/sources/gnome-video-effects/0.5/gnome-video-effects-0.5.0.tar.xz
 Source0  : https://download.gnome.org/sources/gnome-video-effects/0.5/gnome-video-effects-0.5.0.tar.xz
 Summary  : A collection of GStreamer effects to be used in different GNOME Modules
@@ -60,7 +60,7 @@ export http_proxy=http://127.0.0.1:9/
 export https_proxy=http://127.0.0.1:9/
 export no_proxy=localhost,127.0.0.1,0.0.0.0
 export LANG=C.UTF-8
-export SOURCE_DATE_EPOCH=1656117287
+export SOURCE_DATE_EPOCH=1664151792
 export GCC_IGNORE_WERROR=1
 export AR=gcc-ar
 export RANLIB=gcc-ranlib
@@ -76,7 +76,7 @@ ninja -v -C builddiravx2
 
 %install
 mkdir -p %{buildroot}/usr/share/package-licenses/gnome-video-effects
-cp %{_builddir}/gnome-video-effects-0.5.0/COPYING %{buildroot}/usr/share/package-licenses/gnome-video-effects/1f199f2dcc0341653fc919334d9c26d0d2098f93
+cp %{_builddir}/gnome-video-effects-%{version}/COPYING %{buildroot}/usr/share/package-licenses/gnome-video-effects/1f199f2dcc0341653fc919334d9c26d0d2098f93 || :
 DESTDIR=%{buildroot}-v3 ninja -C builddiravx2 install
 DESTDIR=%{buildroot} ninja -C builddir install
 /usr/bin/elf-move.py avx2 %{buildroot}-v3 %{buildroot} %{buildroot}/usr/share/clear/filemap/filemap-%{name}
