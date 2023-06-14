@@ -4,10 +4,10 @@
 # Using build pattern: meson
 #
 Name     : gnome-video-effects
-Version  : 0.5.0
-Release  : 24
-URL      : https://download.gnome.org/sources/gnome-video-effects/0.5/gnome-video-effects-0.5.0.tar.xz
-Source0  : https://download.gnome.org/sources/gnome-video-effects/0.5/gnome-video-effects-0.5.0.tar.xz
+Version  : 0.6.0
+Release  : 25
+URL      : https://download.gnome.org/sources/gnome-video-effects/0.6/gnome-video-effects-0.6.0.tar.xz
+Source0  : https://download.gnome.org/sources/gnome-video-effects/0.6/gnome-video-effects-0.6.0.tar.xz
 Summary  : A collection of GStreamer effects to be used in different GNOME Modules
 Group    : Development/Tools
 License  : GPL-2.0
@@ -53,10 +53,10 @@ license components for the gnome-video-effects package.
 
 
 %prep
-%setup -q -n gnome-video-effects-0.5.0
-cd %{_builddir}/gnome-video-effects-0.5.0
+%setup -q -n gnome-video-effects-0.6.0
+cd %{_builddir}/gnome-video-effects-0.6.0
 pushd ..
-cp -a gnome-video-effects-0.5.0 buildavx2
+cp -a gnome-video-effects-0.6.0 buildavx2
 popd
 
 %build
@@ -64,7 +64,7 @@ export http_proxy=http://127.0.0.1:9/
 export https_proxy=http://127.0.0.1:9/
 export no_proxy=localhost,127.0.0.1,0.0.0.0
 export LANG=C.UTF-8
-export SOURCE_DATE_EPOCH=1682974273
+export SOURCE_DATE_EPOCH=1686783858
 export GCC_IGNORE_WERROR=1
 export AR=gcc-ar
 export RANLIB=gcc-ranlib
@@ -113,6 +113,7 @@ DESTDIR=%{buildroot} ninja -C builddir install
 /usr/share/gnome-video-effects/revtv.effect
 /usr/share/gnome-video-effects/ripple.effect
 /usr/share/gnome-video-effects/saturation.effect
+/usr/share/gnome-video-effects/scanlines.effect
 /usr/share/gnome-video-effects/sepia.effect
 /usr/share/gnome-video-effects/shagadelictv.effect
 /usr/share/gnome-video-effects/sobel.effect
